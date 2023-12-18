@@ -1,0 +1,43 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+section.body-login {
+  background-image: url("https://azmind.com/wp-content/uploads/2012/11/blurred-background-1.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.card-login {
+  max-width: 20rem;
+  min-width: 15rem;
+  width: 100%;
+  .alert {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+}
+
+button,
+.btn {
+  border-radius: 0;
+}
+.btn-login {
+  width: 100%;
+}
+.btn-link {
+  padding-left: 0;
+  padding-right: 0.5rem;
+  font-size: small;
+}
+
+@media (min-width: 576px) {
+  section.body-login {
+    background-image: url("https://fcs.fcrit.ac.in/dist/img/background-image.webp");
+  }
+}
