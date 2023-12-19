@@ -11,8 +11,40 @@
     />
   </head>
   <body>
+    
     <section id="pageLogin" class="body-login h-100 d-flex flex-column m-0">
-      <div class="card card-login mx-auto my-auto">
+      
+    <div class="card card-login mx-auto my-auto">
+    <?php
+        // Include the first PHP code snippet
+        if(isset($_POST['signup']))
+        {
+          extract($_POST);
+
+          $error = []; // Initialize the $error array
+
+          // Check first name length
+          if(strlen($firstName) < 3)
+          {
+            $error[] = 'Please enter at least 3 characters for the first name';
+          }
+          // Check last name length
+          if(strlen($lastName) < 3 || strlen($lastName) > 20)
+          {
+            $error[] = 'Please enter between 3 and 20 characters for the last name';
+          }
+          // Check roll number length
+          if(strlen($roll) !== 7)
+          {
+            $error[] = 'Roll number must be 7 characters long';
+          }
+          // Check username length
+          if(strlen($userName) < 3 || strlen($userName) > 20)
+          {
+            $error[] = 'Please enter between 3 and 20 characters for the username';
+          }
+        }
+    ?>
         <div class="card-header">Sign Up</div>
         <div class="login-logo mt-2">
           <img
@@ -27,7 +59,8 @@
 
         <div class="card-body p-4">
           <h3 class="card-title mb-4">Welcome</h3>
-          <form method="POST" action="/login">
+          <form method="POST" action="/event/signup.php">
+
             <div class="form-group">
               <input
                 id="firstName"
@@ -94,12 +127,12 @@
               />
             </div>
             <div class="form-group mt-4 mb-2">
-              <button type="submit" class="btn btn-primary btn-login">
+              <button type="submit" name = "signup" class="btn btn-primary btn-group-lg form button">
                 Sign Up
               </button>
             </div>
             <div class="form-group mt-0">
-              <a class="btn btn-link" href="login.html">
+              <a class="btn btn-link" href="login.php">
                 <i class="zmdi zmdi-plus-square mr-2"></i>Already have an
                 account?
               </a>
@@ -107,6 +140,16 @@
                 <i class="zmdi zmdi-help mr-2"></i>Forgot Password?
               </a>
             </div>
+            <?php
+            // Include the second PHP code snippet
+            if(isset($error))
+            {
+              foreach($error as $error)
+              {
+                echo '<p class = "errmsg">&#x26A0;'.$error.'</p>';
+              }
+            }
+            ?>
           </form>
         </div>
       </div>
