@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php require_once("config.php"); ?>
 <html>
   <head>
     <title>Sign Up page</title>
@@ -11,39 +12,74 @@
     />
   </head>
   <body>
-    
+   
     <section id="pageLogin" class="body-login h-100 d-flex flex-column m-0">
       
     <div class="card card-login mx-auto my-auto">
     <?php
-        // Include the first PHP code snippet
-        if(isset($_POST['signup']))
-        {
-          extract($_POST);
+$validationPassed = true; // Assume validation is successful
+$error = []; // Initialize the $error array
 
-          $error = []; // Initialize the $error array
+if (isset($_POST['signup'])) {
+    extract($_POST);
 
-          // Check first name length
-          if(strlen($firstName) < 3)
-          {
-            $error[] = 'Please enter at least 3 characters for the first name';
-          }
-          // Check last name length
-          if(strlen($lastName) < 3 || strlen($lastName) > 20)
-          {
-            $error[] = 'Please enter between 3 and 20 characters for the last name';
-          }
-          // Check roll number length
-          if(strlen($roll) !== 7)
-          {
-            $error[] = 'Roll number must be 7 characters long';
-          }
-          // Check username length
-          if(strlen($userName) < 3 || strlen($userName) > 20)
-          {
-            $error[] = 'Please enter between 3 and 20 characters for the username';
-          }
+    // Check first name length
+    if (strlen($firstName) < 3) {
+        $validationPassed = false;
+        $error[] = 'Please enter at least 3 characters for the first name';
+    }
+
+    // Check last name length
+    if (strlen($lastName) < 3 || strlen($lastName) > 20) {
+        $validationPassed = false;
+        $error[] = 'Please enter between 3 and 20 characters for the last name';
+    }
+
+    // Check roll number length
+    if (strlen($roll) !== 7) {
+        $validationPassed = false;
+        $error[] = 'Roll number must be 7 characters long';
+    }
+
+    // Check username length
+    if (strlen($userName) < 3 || strlen($userName) > 20) {
+        $validationPassed = false;
+        $error[] = 'Please enter between 3 and 20 characters for the username';
+    }
+
+    // Add more validation checks if needed
+
+    if ($validationPassed && empty($error)) {
+        $sql = "SELECT * FROM users WHERE (username = '$userName' OR email = '$userEmail');";
+        $res = mysqli_query($conn, $sql);
+
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+
+            if ($userName == $row['username']) {
+                $error[] = "User already exists";
+            }
+            if ($userEmail == $row['email']) {
+                $error[] = "Email already exists";
+            }
         }
+
+        if (empty($error)) {
+            $result = mysqli_query($conn, "INSERT INTO users VALUES(NULL, '$firstName', '$lastName', '$userName', '$userEmail', '$userPassword', $roll);");
+
+            if ($result) {
+              $error[] = 'Registered succesfully, go to login page';
+                $done = 2;
+            } else {
+                $error[] = 'Something went wrong';
+            }
+        }
+    }
+}
+
+        
+      
+
     ?>
         <div class="card-header">Sign Up</div>
         <div class="login-logo mt-2">
@@ -59,7 +95,7 @@
 
         <div class="card-body p-4">
           <h3 class="card-title mb-4">Welcome</h3>
-          <form method="POST" action="/event/signup.php">
+          <form method="POST" action="">
 
             <div class="form-group">
               <input
@@ -141,12 +177,12 @@
               </a>
             </div>
             <?php
-            // Include the second PHP code snippet
+            // 
             if(isset($error))
             {
-              foreach($error as $error)
+              foreach($error as $err)
               {
-                echo '<p class = "errmsg">&#x26A0;'.$error.'</p>';
+                echo '<p class = "errmsg">&#x26A0;'.$err.'</p>';
               }
             }
             ?>

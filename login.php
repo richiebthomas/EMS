@@ -27,7 +27,16 @@
 
         <div class="card-body p-4">
           <h3 class="card-title mb-4">Welcome Back!</h3>
-          <form method="POST" action="/login">
+          <?php
+          if(isset($_GET['loginerror'])){
+            $loginerror = $_GET['loginerror'];
+          }
+          if(!empty($loginerror)){
+            echo '<p class = "errmsg"> Invalid Credentials </p> ';
+          }
+
+          ?>
+          <form method="POST" action="login_process.php">
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-addon">
@@ -35,13 +44,13 @@
                 </div>
                 <input
                   id="email"
-                  name="email"
+                  name="login_var"
                   class="form-control"
                   placeholder="Email or Username"
-                  value=""
+                  value= "<?php if(!empty($loginerror)){echo $loginerror;} ?>"
                   required=""
                   autofocus=""
-                  type="email"
+                  type="text"
                 />
               </div>
             </div>
@@ -65,7 +74,7 @@
                 </label>
               </div>
               <div class="form-group mt-4 mb-2">
-                <button type="submit" class="btn btn-primary btn-login">
+                <button type="submit" name = "sub-login" class="btn btn-primary btn-login">
                   Login
                 </button>
               </div>
