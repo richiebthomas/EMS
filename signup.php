@@ -17,37 +17,37 @@
       
     <div class="card card-login mx-auto my-auto">
     <?php
-$validationPassed = true; // Assume validation is successful
-$error = []; // Initialize the $error array
+$validationPassed = true; 
+$error = []; 
 
 if (isset($_POST['signup'])) {
     extract($_POST);
 
-    // Check first name length
+   
     if (strlen($firstName) < 3) {
         $validationPassed = false;
         $error[] = 'Please enter at least 3 characters for the first name';
     }
 
-    // Check last name length
+    
     if (strlen($lastName) < 3 || strlen($lastName) > 20) {
         $validationPassed = false;
         $error[] = 'Please enter between 3 and 20 characters for the last name';
     }
 
-    // Check roll number length
+    
     if (strlen($roll) !== 7) {
         $validationPassed = false;
         $error[] = 'Roll number must be 7 characters long';
     }
 
-    // Check username length
+    
     if (strlen($userName) < 3 || strlen($userName) > 20) {
         $validationPassed = false;
         $error[] = 'Please enter between 3 and 20 characters for the username';
     }
 
-    // Add more validation checks if needed
+    
 
     if ($validationPassed && empty($error)) {
         $sql = "SELECT * FROM users WHERE (username = '$userName' OR email = '$userEmail');";
