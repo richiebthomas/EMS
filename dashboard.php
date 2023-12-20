@@ -1,22 +1,19 @@
 <?php
 require_once("config.php");
 
-
 if (!isset($_SESSION['login_sess']) || $_SESSION['login_sess'] !== "1") {
     header("location: login.php");
     exit();
 }
 
 if (isset($_POST['logout'])) {
-    session_unset();  
-    session_destroy(); 
+    session_unset();
+    session_destroy();
     header("location: login.php");
     exit();
 }
 
-if(isset($_POST['addEvent']))
-{
-    
+if (isset($_POST['addEvent'])) {
     $eventName = $_POST['eventName'];
     $eventDate = $_POST['eventDate'];
     $eventTime = $_POST['eventTime'];
@@ -24,26 +21,25 @@ if(isset($_POST['addEvent']))
     $coordinator = $_POST['coordinator'];
     $budget = $_POST['budget'];
 
-    
-
-    
     $query = "INSERT INTO events (event_name, event_date, event_time, event_venue, coordinator, budget) 
               VALUES ('$eventName', '$eventDate', '$eventTime', '$eventVenue', '$coordinator', '$budget')";
-    
+
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        
         echo '<script>alert("Event added successfully!");</script>';
-    } else {
         
+        header("location: dashboard.php");
+        exit();
+    } else {
         echo '<script>alert("Error adding event. Please try again.");</script>';
     }
 }
 
 
-$query = "SELECT * FROM events";
+$query = "SELECT event_id, event_name, event_date, event_time, event_venue, coordinator, budget FROM events";
 $result = mysqli_query($conn, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +48,7 @@ $result = mysqli_query($conn, $query);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Event Management System</title>
-   
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -106,44 +102,50 @@ $result = mysqli_query($conn, $query);
         </div>
 
         
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <h2 class="text-center mb-4">All Events</h2>
-                <div class="table-responsive bg-light p-4">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Sr. No.</th>
-                                <th>Event Name</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Venue</th>
-                                <th>Coordinator</th>
-                                <th>Budget</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $counter = 1;
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo "<tr>";
-                                echo "<td>{$counter}</td>";
-                                echo "<td>{$row['event_name']}</td>";
-                                echo "<td>{$row['event_date']}</td>";
-                                echo "<td>{$row['event_time']}</td>";
-                                echo "<td>{$row['event_venue']}</td>";
-                                echo "<td>{$row['coordinator']}</td>";
-                                echo "<td>{$row['budget']}</td>";
-                                echo "</tr>";
-                                $counter++;
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <h2 class="text-center mb-4">All Events</h2>
+        <div class="table-responsive bg-light p-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Event Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Venue</th>
+                        <th>Coordinator</th>
+                        <th>Budget</th>
+                        <th>Action</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $counter = 1;
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td>{$counter}</td>";
+                        echo "<td>{$row['event_name']}</td>";
+                        echo "<td>{$row['event_date']}</td>";
+                        echo "<td>{$row['event_time']}</td>";
+                        echo "<td>{$row['event_venue']}</td>";
+                        echo "<td>{$row['coordinator']}</td>";
+                        echo "<td>{$row['budget']}</td>";
+                        if (isset($row['event_id'])) {
+                            echo '<td><a href="edit_event.php?event_id=' . $row['event_id'] . '" class="btn btn-primary btn-sm">Edit</a></td>';
+                        } else {
+                            echo '<td>Error: ID not found</td>';
+                        }
+                        
+                        echo "</tr>";
+                        $counter++;
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
     
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

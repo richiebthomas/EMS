@@ -68,11 +68,7 @@
                   type="password"
                 />
               </div>
-              <div class="form-check mt-2">
-                <label class="form-check-label position-static pl-0">
-                  <input name="remember" type="checkbox" /> Remember Me
-                </label>
-              </div>
+              
               <div class="form-group mt-4 mb-2">
                 <button type="submit" name = "sub-login" class="btn btn-primary btn-login">
                   Login
@@ -82,9 +78,7 @@
                 <a class="btn btn-link" href="signup.php">
                   <i class="zmdi zmdi-plus-square mr-2"></i>Register
                 </a>
-                <a class="btn btn-link" href="/password/reset">
-                  <i class="zmdi zmdi-help mr-2"></i>Forgot Password?
-                </a>
+                
               </div>
             </div>
           </form>
