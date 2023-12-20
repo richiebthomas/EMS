@@ -60,7 +60,7 @@ if(isset($_POST['updateEvent'])) {
         echo '<script>alert("Event updated successfully!");</script>';
         
         
-        header("location: edit_event.php?event_id=" . $eventId);
+        header("location: dashboard.php" );
         exit();
     } else {
       
