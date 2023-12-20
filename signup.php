@@ -169,8 +169,7 @@ if (isset($_POST['signup'])) {
             </div>
             <div class="form-group mt-0">
               <a class="btn btn-link" href="login.php">
-                <i class="zmdi zmdi-plus-square mr-2"></i>Already have an
-                account?
+                <i class="zmdi zmdi-plus-square mr-2"></i>Login Here
               </a>
               <a class="btn btn-link" href="/password/reset">
                 <i class="zmdi zmdi-help mr-2"></i>Forgot Password?

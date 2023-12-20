@@ -41,3 +41,13 @@ button,
     background-image: url("https://fcs.fcrit.ac.in/dist/img/background-image.webp");
   }
 }
+
+.errmsg {
+  margin: 2px auto;
+  border-radius: 5px;
+  border: 1px solid red;
+  background: pink;
+  text-align: left;
+  color: brown;
+  padding: 1px;
+}
