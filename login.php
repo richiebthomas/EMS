@@ -7,9 +7,34 @@
     <title>Login Page</title>
     <link rel="stylesheet" href="style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <style>
+        section.body-login {
+            background-image: url("https://fcs.fcrit.ac.in/dist/img/background-image.webp");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .card-login {
+            max-width: 20rem;
+            min-width: 15rem;
+            width: 100%;
+        }
+
+        .errmsg {
+            margin: 2px auto;
+            border-radius: 5px;
+            border: 1px solid red;
+            background: pink;
+            text-align: left;
+            color: brown;
+            padding: 1px;
+        }
+    </style>
 </head>
 <body>
-    <section id="pageLogin" class="body-login h-100 d-flex flex-column m-0">
+    <section id="pageLogin" class="body-login d-flex flex-column m-0">
         <div class="card card-login mx-auto my-auto">
             <?php
                 if(isset($_GET['loginerror'])){
