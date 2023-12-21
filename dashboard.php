@@ -50,10 +50,22 @@ $result = mysqli_query($conn, $query);
     <title>Campus Event Management System</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      
+        .dashboard-bg {
+            background-color: #808080; /* Grey background color */
+          
+            
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+           
+        }
+    </style>
 </head>
 <body>
 
-    <div class="container-fluid">
+    <div class="container-fluid dashboard-bg">
        
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">
