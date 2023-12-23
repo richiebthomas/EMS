@@ -113,6 +113,9 @@ if(isset($_POST['deleteEvent'])) {
         
         <div class="row justify-content-center mt-4">
             <div class="col-md-6">
+            <form method="POST" action="">
+            <button class="btn btn-secondary" type="button" onclick="window.history.back();">Go Back</button>
+        </form>
                 <h2 class="text-center">Edit Event</h2>
                 <form method="POST" action="">
                     <div class="form-group">
