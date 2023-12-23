@@ -46,8 +46,9 @@ if (isset($_POST['addEvent'])) {
     }
 }
 
-$query = "SELECT event_id, event_name, event_date, event_time, event_venue, coordinator, budget FROM events";
+$query = "SELECT event_id, event_name, event_date, event_time, event_venue, coordinator, budget FROM events ORDER BY event_date ASC, event_time ASC";
 $result = mysqli_query($conn, $query);
+
 
 ?>
 
@@ -94,33 +95,31 @@ $result = mysqli_query($conn, $query);
 
         
         <div class="row justify-content-center mb-4">
-            <div class="col-md-6 bg-light p-4">
-                <h2 class="text-center mb-4">Add New Event</h2>
-                <form method="POST" action="">
-                <div class="form-group">
-                        <input type="text" class="form-control" name="eventName" placeholder="Event Name" required>
-                    </div>
-                <div class="form-group">
-                        <input type="date" class="form-control" name="eventDate" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="time" class="form-control" name="eventTime" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="eventVenue" placeholder="Venue" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="coordinator" placeholder="Coordinator" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="budget" placeholder="Budget" required>
-                    </div>
-                    
-                    
-                    <button type="submit" class="btn btn-primary btn-block" name="addEvent">Add Event</button>
-                </form>
+    <div class="col-md-6 bg-light p-4">
+        <h2 class="text-center mb-4">Add New Event</h2>
+        <form method="POST" action="">
+            <div class="form-group">
+                <input type="text" class="form-control" name="eventName" placeholder="Event Name" required>
             </div>
-        </div>
+            <div class="form-group">
+                <input type="date" class="form-control" name="eventDate" required>
+            </div>
+            <div class="form-group">
+                <input type="time" class="form-control" name="eventTime" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="eventVenue" placeholder="Venue" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="coordinator" placeholder="Coordinator" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="budget" placeholder="Budget" pattern="\d+(\.\d{1,2})?" title="Enter a valid number" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" name="addEvent">Add Event</button>
+        </form>
+    </div>
+</div>
 
         
         <div class="row justify-content-center mt-4">
