@@ -110,7 +110,7 @@ if(isset($_POST['deleteEvent'])) {
                 <button class="btn btn-danger" type="submit" name="logout">Logout</button>
             </form>
         </nav>
-
+        
         <div class="row justify-content-center mt-4">
             <div class="col-md-6">
                 <h2 class="text-center">Edit Event</h2>
@@ -143,6 +143,21 @@ if(isset($_POST['deleteEvent'])) {
                     <form method="POST" action="">
                     <input type="hidden" name="deleteEvent" value="1"> <!-- Hidden input to indicate delete action -->
                     <button type="submit" class="btn btn-danger btn-block" onclick="return confirm('Are you sure you want to delete this event?');">Delete Event</button>
+
+                    <?php
+// Fetch user details based on the user_id associated with the event
+$userID = $eventDetails['user_id'];
+$userQuery = "SELECT * FROM users WHERE id = $userID;";
+$userResult = mysqli_query($conn, $userQuery);
+
+// Check if the user exists
+if (mysqli_num_rows($userResult) > 0) {
+    $userDetails = mysqli_fetch_assoc($userResult);
+    echo '<p><strong>Event Created By :</strong> @ ' . $userDetails['username'] . '</p>';
+} else {
+    echo '<p><strong>Event Created By : @</strong> Unknown User</p>';
+}
+?>
         </form>
                 </form>
             </div>

@@ -13,6 +13,7 @@ if(isset($_POST['sub-login']))
         if($password == $row["password"]){
             $_SESSION["login_sess"]="1";
             $_SESSION["login_email"] = $row["email"];
+            $_SESSION["user_id"] = $row["id"];
             header("location: dashboard.php");
         }
         else{

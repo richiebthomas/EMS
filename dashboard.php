@@ -21,21 +21,30 @@ if (isset($_POST['addEvent'])) {
     $coordinator = $_POST['coordinator'];
     $budget = $_POST['budget'];
 
-    $query = "INSERT INTO events (event_name, event_date, event_time, event_venue, coordinator, budget) 
-              VALUES ('$eventName', '$eventDate', '$eventTime', '$eventVenue', '$coordinator', '$budget')";
+   
+    if (isset($_SESSION['user_id']) && is_numeric($_SESSION['user_id'])) {
+        $userId = $_SESSION['user_id'];
 
-    $result = mysqli_query($conn, $query);
+        $query = "INSERT INTO events (event_name, event_date, event_time, event_venue, coordinator, budget, user_id) 
+                  VALUES ('$eventName', '$eventDate', '$eventTime', '$eventVenue', '$coordinator', '$budget', $userId)";
 
-    if ($result) {
-        echo '<script>alert("Event added successfully!");</script>';
-        
-        header("location: dashboard.php");
-        exit();
+        $result = mysqli_query($conn, $query);
+
+        if ($result) {
+            echo '<script>alert("Event added successfully!");</script>';
+
+            header("location: dashboard.php");
+            exit();
+        } else {
+            echo '<script>alert("Error adding event. Please try again.");</script>';
+        }
     } else {
-        echo '<script>alert("Error adding event. Please try again.");</script>';
+       
+        echo '<script>alert("Invalid user ID. Please log in again.");</script>';
+        header("location: login.php");
+        exit();
     }
 }
-
 
 $query = "SELECT event_id, event_name, event_date, event_time, event_venue, coordinator, budget FROM events";
 $result = mysqli_query($conn, $query);
